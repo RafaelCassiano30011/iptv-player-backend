@@ -1,0 +1,22 @@
+{
+  "name": "iptv-player-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "knex": "node --import tsx ./node_modules/.bin/knex"
+  },
+  "dependencies": {
+    "fastify": "^5.2.1",
+    "knex": "^3.1.0",
+    "sqlite3": "^5.1.7",
+    "typescript": "^5.7.3",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "@rocketseat/eslint-config": "^2.2.2",
+    "eslint": "^9.18.0",
+    "tsx": "^4.19.2"
+  }
+}
