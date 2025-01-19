@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(cuid())
+  username String @unique
+
+  created_at DateTime  @default(now())
+  profiles   Profile[]
+
+  @@map("users")
+}
+
+model Profile {
+  id   String @id @default(cuid())
+  name String
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  created_at DateTime  @default(now())
+  histories  History[]
+
+  @@map("profiles")
+}
+
+model History {
+  id String @id @default(cuid())
+
+  media_id           String
+  media_name         String
+  media_image        String
+  media_url          String
+  media_type         String
+  media_time_watched String
+
+  season  Int?
+  episode Int?
+
+  profile    Profile @relation(fields: [profile_id], references: [id])
+  profile_id String
+
+  created   DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("histories")
+}
