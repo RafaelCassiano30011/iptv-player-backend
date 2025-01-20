@@ -1,23 +1,23 @@
 import { prisma } from "@/lib/prisma";
+import { UsersRepository } from "@/repositories/users-repository";
+import { UserAlreadyExistsError } from "./errors/user-already-exists";
 
 interface RegisterUseCaseProps {
   username: string;
 }
 
-export const registerUseCase = async ({ username }: RegisterUseCaseProps) => {
-  const userWithUsername = await prisma.user.findUnique({
-    where: {
-      username,
-    },
-  });
+export class RegisterUseCase {
+  constructor(private usersRepository: UsersRepository) {}
 
-  if (userWithUsername) {
-    throw new Error("Username already exists");
+  async execute({ username }: RegisterUseCaseProps) {
+    const userWithUsername = await this.usersRepository.findByUsername(username);
+
+    if (userWithUsername) {
+      throw new UserAlreadyExistsError();
+    }
+
+    await this.usersRepository.create({
+      username,
+    });
   }
-
-  await prisma.user.create({
-    data: {
-      username,
-    },
-  });
-};
+}
