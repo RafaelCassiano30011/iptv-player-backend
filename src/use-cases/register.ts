@@ -9,7 +9,7 @@ export class RegisterUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
   async execute({ username }: RegisterUseCaseProps) {
-    const userWithUsername = await this.usersRepository.findByUsername(username);
+    const userWithUsername = await this.usersRepository.findByUsername(username.toLocaleLowerCase());
 
     if (userWithUsername) {
       throw new UserAlreadyExistsError();

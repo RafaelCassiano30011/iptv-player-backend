@@ -6,7 +6,7 @@ interface ProfileUseCaseProps {
   name: string;
 }
 
-export class ProfileUseCase {
+export class RegisterProfileUseCase {
   constructor(private profileRepository: ProfileRepository) {}
 
   async execute({ user_id, name }: ProfileUseCaseProps) {
@@ -14,5 +14,11 @@ export class ProfileUseCase {
       name,
       user_id,
     });
+
+    if (!profile) {
+      throw new ResourceNotFoundError();
+    }
+
+    return { profile };
   }
 }
