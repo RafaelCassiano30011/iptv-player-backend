@@ -3,3 +3,4 @@ db/app.db
 
 .env
 build
+coverage
