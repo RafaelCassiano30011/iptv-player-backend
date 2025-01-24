@@ -5,6 +5,7 @@ import { registerProfile } from "./controllers/registerProfile";
 import { getProfile } from "./controllers/getProfile";
 import { registerHistory } from "./controllers/registerHistory";
 import { getHistories } from "./controllers/getHistories";
+import { proxy } from "./controllers/proxy";
 
 const appRoutes = async (app: FastifyInstance) => {
   app.post("/users", register);
@@ -14,6 +15,8 @@ const appRoutes = async (app: FastifyInstance) => {
   app.get("/users/:username", getUser);
   app.get("/profile/:user_id", getProfile);
   app.get("/history/:profile_id", getHistories);
+
+  app.post("/proxy", proxy);
 };
 
 export { appRoutes };

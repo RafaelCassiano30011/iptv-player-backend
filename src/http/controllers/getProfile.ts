@@ -7,8 +7,10 @@ export const getProfile = async (req: FastifyRequest, res: FastifyReply) => {
   const getProfileBodySchema = z.object({
     user_id: z.string(),
   });
+  console.log(req.params);
 
   const { user_id } = getProfileBodySchema.parse(req.params);
+
 
   try {
     const getProfilesUseCase = makeGetProfilesUseCase();

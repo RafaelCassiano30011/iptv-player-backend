@@ -11,10 +11,6 @@ export class GetUserUseCase {
   async execute({ username }: GetUserUseCaseProps) {
     const user = await this.usersRepository.findByUsername(username.toLocaleLowerCase());
 
-    if (!user) {
-      throw new ResourceNotFoundError();
-    }
-
     return { user };
   }
 }
